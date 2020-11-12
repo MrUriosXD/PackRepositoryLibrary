@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<thanks>
+    <section>
+        <function title="Created by" author="Martin van Zuilekom" />
+        <function title="Special thanks to" author="">
+            <credit>Hameno</credit>
+            <credit>Pepyakin</credit>
+        </function>
+    </section>
+</thanks>

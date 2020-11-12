@@ -1,0 +1,3 @@
+rootProject.name='Inscription'
+include ':app'
+include ':library'

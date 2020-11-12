@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_changelog">ChangeLog</string>
+    <string name="title_whatsnew">Whats New</string>
+    <string name="title_credits">Credits</string>
+    <string name="title_licenses">Licenses</string>
+    <string name="title_tranks">Tranks</string>
+    <string name="version">Version:</string>
+
+    <!-- Dialog (ChangeLog) -->
+    <string name="changetag_added">Added</string>
+    <string name="changetag_removed">Removed</string>
+    <string name="changetag_changed">Changed</string>
+    <string name="changetag_update">Update</string>
+    <string name="changetag_security">Security</string>
+
+    <!-- Dialog (ChangeLog & License) -->
+    <string name="close">Close</string>
+</resources>
