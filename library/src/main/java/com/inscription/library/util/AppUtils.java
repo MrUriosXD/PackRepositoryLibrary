@@ -1,6 +1,7 @@
 package com.inscription.library.util;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -9,24 +10,34 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import com.inscription.library.BuildConfig;
+import androidx.appcompat.app.AlertDialog;
+
 import com.inscription.library.R;
 
 public class AppUtils{
-
     public static final int StyleDialogColor = R.style.AlertDialogTheme;
-    public static final String appPackageName = BuildConfig.APPLICATION_ID;
     public static final String appUserName = "MrUriosXD";
     public static final String appUserNameID = "7725682870183374926";
     public static final String email = "mruriosxd@gmail.com";
-    /**
-     * Utility method for retrieving the appversion
-     *
-     * @param context context
-     * @return the app version name
-     */
+
+    /* Utility method for retrieving the appName */
+    public static String getApplicationName(Context context) {
+        return (String) context.getApplicationInfo().loadLabel(context.getPackageManager());
+    }
+
+    /* Utility method for retrieving the Package Name App */
+    public static String GetAppPackageName(Context context){
+        try {
+            PackageInfo _info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return _info.packageName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /* Utility method for retrieving the appversion */
     public static String GetAppVersion(Context context){
         try {
             PackageInfo _info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -37,6 +48,7 @@ public class AppUtils{
         }
     }
 
+    /* Utility method for retrieving the appversioncode */
     public static int GetVersionCode(Context context){
         try {
             PackageInfo _info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
@@ -49,8 +61,80 @@ public class AppUtils{
 
     public static void uninstallApk(Context context) {
         Intent intent = new Intent(Intent.ACTION_DELETE);
-        intent.setData(Uri.parse("package:" + appPackageName));
+        intent.setData(Uri.parse("package:" + GetAppPackageName(context)));
         context.startActivity(intent);
+    }
+
+    public static void rateApps (Context context){
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + GetAppPackageName(context) + context.getResources().getString(R.string.share_extra_text_lang)));
+            context.startActivity(intent);
+        } catch (android.content.ActivityNotFoundException anfe) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("http://play.google.com/store/apps/details?id=" + GetAppPackageName(context) + context.getResources().getString(R.string.share_extra_text_lang)));
+            context.startActivity(intent);
+        }
+    }
+
+    public static void otherApps (Context context){
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://dev?id:" + appUserNameID + context.getResources().getString(R.string.share_extra_text_lang)));
+            context.startActivity(intent);
+        } catch (android.content.ActivityNotFoundException anfe) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("http://play.google.com/store/apps/dev?id=" + appUserNameID + context.getResources().getString(R.string.share_extra_text_lang)));
+            context.startActivity(intent);
+        }
+    }
+
+    public static void shareUs (Context context){
+        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(Intent.EXTRA_SUBJECT, getApplicationName(context));
+        sharingIntent.putExtra(Intent.EXTRA_TEXT, getApplicationName(context) + " " +context.getResources().getString(R.string.share_extra_text) +" "+ "http://play.google.com/store/apps/details?id=" + GetAppPackageName(context) + context.getResources().getString(R.string.share_extra_text_lang));
+        Intent.createChooser(sharingIntent, context.getResources().getString(R.string.share_using));
+        context.startActivity(sharingIntent);
+    }
+
+    public static void alertExit (Context context) {
+        final AlertDialog.Builder adb = new AlertDialog.Builder(context, StyleDialogColor);
+        adb.setTitle(context.getResources().getString(R.string.exit));
+        adb.setIcon(R.drawable.ic_dialog_alert);
+        adb.setMessage(context.getResources().getString(R.string.confirm_exit));
+        adb.setNegativeButton(context.getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        adb.setPositiveButton(context.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        });
+
+        adb.show();
+    }
+
+    public static void sendEmail(Context context) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share_extra_subject_email)+ " " + getApplicationName(context));
+        emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
+        emailIntent.putExtra(Intent.EXTRA_TEXT,
+                "\n--------------------------------------------------\n" +
+                        context.getResources().getString(R.string.device_info) +
+                        "\n--------------------------------------------------\n" +
+                        context.getResources().getString(R.string.device_os) + getAndroidVersion(Build.VERSION.SDK_INT) +
+                        context.getResources().getString(R.string.device_model) + getDeviceName() +
+                        context.getResources().getString(R.string.device_lang_region) + context.getResources().getConfiguration().locale +
+                        context.getResources().getString(R.string.device_screen_density) + context.getResources().getDisplayMetrics().density +
+                        context.getResources().getString(R.string.device_screen_resolution) + getResolution(context) +
+                        context.getResources().getString(R.string.device_app_version) + GetAppVersion(context) + " ("+ GetVersionCode(context) + ")"
+        );
+        context.startActivity(Intent.createChooser(emailIntent, context.getResources().getString(R.string.share_title_email)));
     }
 
     /**
@@ -59,7 +143,7 @@ public class AppUtils{
      * @param context context to use to retrieve the current WindowManager
      * @return a string in the format "WxH", or the empty string "" if resolution cannot be determined
      */
-    private static String getResolution(final Context context) {
+    public static String getResolution(final Context context) {
         // user reported NPE in this method; that means either getSystemService or getDefaultDisplay
         // were returning null, even though the documentation doesn't say they should do so; so now
         // we catch Throwable and return empty string if that happens
@@ -74,7 +158,7 @@ public class AppUtils{
         return resolution;
     }
 
-    private static String getDeviceName() {
+    public static String getDeviceName() {
         String manufacturer = Build.MANUFACTURER;
         String model = Build.MODEL;
         if (model.startsWith(manufacturer)) {
@@ -84,7 +168,7 @@ public class AppUtils{
         }
     }
 
-    private static String capitalize(String s) {
+    public static String capitalize(String s) {
         if (s == null || s.length() == 0) {
             return "";
         }
@@ -96,7 +180,7 @@ public class AppUtils{
         }
     }
 
-    private static String getAndroidVersion(int sdk) {
+    public static String getAndroidVersion(int sdk) {
         switch (sdk) {
             case 1:  return  "Android 1.0"   + " (" + "1" + " " + "Apple Pie"           + ")";
             case 2:  return  "Android 1.1"   + " (" + "2" + " " + "Banana Bread"        + ")";
@@ -126,7 +210,8 @@ public class AppUtils{
             case 26: return  "Android 8.0"   + " (" + "26" + " " + "Oreo"                + ")";
             case 27: return  "Android 8.1"   + " (" + "27" + " " + "Oreo"                + ")";
             case 28: return  "Android 9.0"   + " (" + "28" + " " + "Pie"                 + ")";
-            case 29: return  "Android 9.1"   + " (" + "29" + " " + "Pie"                 + ")";
+            case 29: return  "Android 10.0"  + " (" + "29" + " " + "Android 10"          + ")";
+            case 30: return  "Android 11.0"  + " (" + "30" + " " + "Android 11"          + ")";
             default: return  "";
         }
     }

@@ -71,7 +71,7 @@ public class CreditsDialog {
 			+ "a { color: #777777; }"				
 			+ "</style>";
 
-    private int mIcon = 0;
+    private final int mIcon = 0;
 
 	private final Context mContext;
 

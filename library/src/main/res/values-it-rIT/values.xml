@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_changelog">Nuove Modifiche</string>
+    <string name="title_credits">Crediti</string>
+    <string name="title_licenses">Licenze</string>
+    <string name="title_thanks">Grazie</string>
+    <string name="title_translator">Traduttrice</string>
+    <string name="title_translators">Traduttrices</string>
+    <string name="version">Version:</string>
+
+    <!-- Dialog (ChangeLog) -->
+    <string name="changetag_added">Aggiunto</string>
+    <string name="changetag_removed">Rimoss</string>
+    <string name="changetag_changed">Changed</string>
+    <string name="changetag_update">Aggiornare</string>
+    <string name="changetag_security">Sicurezza</string>
+
+    <!-- Dialog (PlayStore) -->
+    <string name="share_using">Condividere con</string>
+    <string name="share_extra_text" />
+    <string name="share_extra_text_lang">&amp;hl=it</string>
+
+    <!-- Dialog (ChangeLog & License) -->
+    <string name="close">Vicino</string>
+
+    <!-- Dialog (Exit) -->
+    <string name="exit">Uscita</string>
+    <string name="confirm_exit">Sei sicuro?</string>
+    <string name="ok">Accetta</string>
+    <string name="cancel">Annullare</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+
+    <!-- Dialog (CheckRoot) -->
+    <string name="ok_no_root_msg">Ok, lo capisco</string>
+    <string name="toast_no_root">Il telefono non è radicata!</string>
+    <string name="ms_no_root">Il telefono non ha nessuna root di accesso. Esso ha bisogno di accesso root per funzionare correttamente.</string>
+
+    <!-- Dialog (Email) -->
+    <string name="share_title_email">Scegliere un client di posta elettronica:</string>
+    <string name="share_extra_subject_email">Segnala un bug per</string>
+    <string name="device_info">\nDispositivo di informazioni:\n </string>
+    <string name="device_os">\nOrdigno OS:\t</string>
+    <string name="device_model">\nOrdigno Model:\t</string>
+    <string name="device_lang_region">\nLanguage/Region:\t</string>
+    <string name="device_screen_density">\nScreen Density:\t</string>
+    <string name="device_screen_resolution">\nScreen Resolution:\t</string>
+    <string name="device_app_version">\nApp Version:\t</string>
+    <string name="device_text_version">Version:</string>
+
+</resources>

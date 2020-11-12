@@ -1,5 +1,6 @@
 package com.inscription.ui.home;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
 
         /* Display Commands Buttons Application */
         View.OnClickListener listener = new View.OnClickListener() {
+                @SuppressLint("NonConstantResourceId")
                 @Override
                 public void onClick(View v) {
                     switch (v.getId()) {

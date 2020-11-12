@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_changelog">Llista de Cambis</string>
+    <string name="title_credits">Credits</string>
+    <string name="title_licenses">Llicències</string>
+    <string name="title_thanks">Gracies</string>
+    <string name="title_translator">Traductor</string>
+    <string name="title_translators">Traductors</string>
+    <string name="version">Versió:</string>
+
+    <!-- Dialog (ChangeLog) -->
+    <string name="changetag_added">Afegit</string>
+    <string name="changetag_removed">Eliminat</string>
+    <string name="changetag_changed">Canvis</string>
+    <string name="changetag_update">Actualització</string>
+    <string name="changetag_security">Seguretat</string>
+
+    <!-- Dialog (PlayStore) -->
+    <string name="share_using">Compartir mitjançant</string>
+    <string name="share_extra_text" />
+    <string name="share_extra_text_lang">&amp;hl=ca</string>
+
+    <!-- Dialog (ChangeLog & License) -->
+    <string name="close">Tancar</string>
+
+    <!-- Dialog (Exit) -->
+    <string name="exit">Eixida</string>
+    <string name="confirm_exit">Estar Segur?</string>
+    <string name="ok">D\'acord</string>
+    <string name="cancel">Cancel·lar</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+
+    <!-- Dialog (CheckRoot) -->
+    <string name="ok_no_root_msg">Ok, ho antenc</string>
+    <string name="toast_no_root">Telèfon no rotejat!</string>
+    <string name="ms_no_root">El telèfon no té accés a root. Necessita l\'accés a root perquè funcioni correctament.</string>
+
+    <!-- Dialog (Email) -->
+    <string name="share_title_email">Tria un client de correu electrònic:</string>
+    <string name="share_extra_subject_email">Informe de error per</string>
+    <string name="device_info">\nInformació del Dispositiu:\n</string>
+    <string name="device_os">\nDispositiu OS:\t</string>
+    <string name="device_model">\nDispositiu Model:\t</string>
+    <string name="device_lang_region">\nIdioma/Regió:\t</string>
+    <string name="device_screen_density">\nScreen Density:\t</string>
+    <string name="device_screen_resolution">\nDensitat de Pantalla:\t</string>
+    <string name="device_app_version">\nApp Versió:\t</string>
+    <string name="device_text_version">Versió:</string>
+</resources>

@@ -14,6 +14,32 @@
     <string name="changetag_update">Update</string>
     <string name="changetag_security">Security</string>
 
+    <!-- Dialog (PlayStore) -->
+    <string name="share_using">Share Via</string>
+    <string name="share_extra_text" />
+    <string name="share_extra_text_lang">&amp;hl=en</string>
+
     <!-- Dialog (ChangeLog & License) -->
     <string name="close">Close</string>
+
+    <!-- Dialog (Exit) -->
+    <string name="exit">Exit</string>
+    <string name="confirm_exit">Are you sure?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Dialog (Email) -->
+    <string name="share_title_email">Choose an Email client:</string>
+    <string name="share_extra_subject_email">Report bug for</string>
+    <string name="device_info">\nDevice Info:\n</string>
+    <string name="device_os">\nDevice OS:\t</string>
+    <string name="device_model">\nDevice Model:\t</string>
+    <string name="device_lang_region">\nLanguage/Region:\t</string>
+    <string name="device_screen_density">\nScreen Density:\t</string>
+    <string name="device_screen_resolution">\nScreen Resolution:\t</string>
+    <string name="device_app_version">\nApp Version:\t</string>
+    <string name="device_text_version">Version:</string>
+
 </resources>
