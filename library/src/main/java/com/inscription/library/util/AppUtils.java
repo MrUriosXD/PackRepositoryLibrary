@@ -10,6 +10,7 @@ import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -20,6 +21,10 @@ public class AppUtils{
     public static final String appUserName = "MrUriosXD";
     public static final String appUserNameID = "7725682870183374926";
     public static final String email = "mruriosxd@gmail.com";
+
+    //Toast to Exit
+    private long lastPressedTime;
+    private static final int PERIOD = 4000;
 
     /* Utility method for retrieving the appName */
     public static String getApplicationName(Context context) {
@@ -114,7 +119,46 @@ public class AppUtils{
                 System.exit(0);
             }
         });
+        adb.show();
+    }
 
+    public static void checkRoot (Context context) {
+        Toast.makeText(context, context.getResources().getString(R.string.toast_no_root), Toast.LENGTH_SHORT).show();
+        final AlertDialog.Builder adb = new AlertDialog.Builder(context, StyleDialogColor);
+        adb.setTitle(context.getResources().getString(R.string.toast_no_root));
+        adb.setMessage(context.getResources().getString(R.string.ms_no_root));
+        adb.setCancelable(false);
+        adb.setNegativeButton(context.getResources().getString(R.string.close), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                System.exit(0);
+            }
+        });
+        adb.setPositiveButton(context.getResources().getString(R.string.ok_no_root_msg), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        adb.show();
+    }
+
+    public static void initThemeListener (Context context) {
+        // setup the alert builder
+        AlertDialog.Builder adb = new AlertDialog.Builder(context);
+        adb.setTitle(context.getResources().getString(R.string.select_theme));
+        String[] itemTheme = context.getResources().getStringArray(R.array.dialog_theme_choice_array);;
+        adb.setItems(itemTheme, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: // horse
+                    case 1: // cow
+                    case 2: // camel
+                    case 3: // sheep
+                }
+            }
+        });
         adb.show();
     }
 

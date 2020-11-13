@@ -3,10 +3,10 @@
     <string name="title_changelog">Llista de Cambis</string>
     <string name="title_credits">Credits</string>
     <string name="title_licenses">Llicències</string>
-    <string name="title_thanks">Gracies</string>
-    <string name="title_translator">Traductor</string>
-    <string name="title_translators">Traductors</string>
+    <string name="title_tranks">Gracies</string>
     <string name="version">Versió:</string>
+    <string name="select_theme">Seleccio Tema</string>
+
 
     <!-- Dialog (ChangeLog) -->
     <string name="changetag_added">Afegit</string>
@@ -47,4 +47,5 @@
     <string name="device_screen_resolution">\nDensitat de Pantalla:\t</string>
     <string name="device_app_version">\nApp Versió:\t</string>
     <string name="device_text_version">Versió:</string>
+
 </resources>

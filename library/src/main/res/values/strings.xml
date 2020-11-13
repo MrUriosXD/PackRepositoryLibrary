@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="title_changelog">ChangeLog</string>
-    <string name="title_whatsnew">Whats New</string>
     <string name="title_credits">Credits</string>
     <string name="title_licenses">Licenses</string>
     <string name="title_tranks">Tranks</string>
@@ -13,6 +12,11 @@
     <string name="changetag_changed">Changed</string>
     <string name="changetag_update">Update</string>
     <string name="changetag_security">Security</string>
+
+    <!-- Dialog (CheckRoot) -->
+    <string name="ok_no_root_msg">OK, i understand</string>
+    <string name="toast_no_root">Phone not Rooted!</string>
+    <string name="ms_no_root">The phone has no access root. It needs access root to work correctly.</string>
 
     <!-- Dialog (PlayStore) -->
     <string name="share_using">Share Via</string>
@@ -40,6 +44,8 @@
     <string name="device_screen_density">\nScreen Density:\t</string>
     <string name="device_screen_resolution">\nScreen Resolution:\t</string>
     <string name="device_app_version">\nApp Version:\t</string>
+    <string name="select_theme">Select Theme</string>
     <string name="device_text_version">Version:</string>
+
 
 </resources>

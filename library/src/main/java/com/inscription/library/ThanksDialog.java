@@ -35,12 +35,13 @@ public class ThanksDialog {
 		</section>
 	</thanks>
  */
-    static final private String TAG = "ThanksDialog";
+    private static final String TAG = "ThanksDialog";
 
     private static final String TRANKS_XML = "thanks";
 
     private int mTitle = R.string.title_tranks;
 
+    //No modificar
     private final Context mContext;
     public ThanksDialog(final Context context) {
         mContext = context;
