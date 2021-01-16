@@ -143,25 +143,6 @@ public class AppUtils{
         adb.show();
     }
 
-    public static void initThemeListener (Context context) {
-        // setup the alert builder
-        AlertDialog.Builder adb = new AlertDialog.Builder(context);
-        adb.setTitle(context.getResources().getString(R.string.select_theme));
-        String[] itemTheme = context.getResources().getStringArray(R.array.dialog_theme_choice_array);;
-        adb.setItems(itemTheme, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0: // horse
-                    case 1: // cow
-                    case 2: // camel
-                    case 3: // sheep
-                }
-            }
-        });
-        adb.show();
-    }
-
     public static void sendEmail(Context context) {
         Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, context.getResources().getString(R.string.share_extra_subject_email)+ " " + getApplicationName(context));

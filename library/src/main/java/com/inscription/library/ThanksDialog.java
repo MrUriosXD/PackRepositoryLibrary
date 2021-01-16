@@ -165,24 +165,23 @@ public class ThanksDialog {
         //Get credits xml resource id
         final int resID = resources.getIdentifier(TRANKS_XML, "xml", packageName);
         //Create html credits
-        final String HTML = getHTMLTranks(resID, resources);
+        final String htmlTranks = getHTMLTranks(resID, resources);
 
         //Get button strings
-        final String close =  resources.getString(R.string.close);
+        final String close = resources.getString(R.string.close);
 
         //Check for empty credits
-        if (HTML.equals("")) {
+        if (htmlTranks.equals("")) {
             //Could not load credits, message user and exit
             Toast.makeText(mContext, "Could not load" + " "+ TRANKS_XML, Toast.LENGTH_SHORT).show();
             return;
         }
         //Create webview and load html
-        final WebView webView = new WebView(mContext);
-        webView.loadData(HTML, "text/html", "utf-8");
-
+        final WebView WebView = new WebView(mContext);
+        WebView.loadDataWithBaseURL(null, htmlTranks, "text/html", "utf-8", null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, StyleDialogColor)
                 .setTitle(mTitle)
-                .setView(webView)
+                .setView(WebView)
                 .setPositiveButton(close, new Dialog.OnClickListener() {
                     public void onClick(final DialogInterface dialogInterface, final int i) {
                         dialogInterface.dismiss();

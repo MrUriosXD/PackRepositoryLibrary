@@ -44,8 +44,5 @@
     <string name="device_screen_density">\nScreen Density:\t</string>
     <string name="device_screen_resolution">\nScreen Resolution:\t</string>
     <string name="device_app_version">\nApp Version:\t</string>
-    <string name="select_theme">Select Theme</string>
     <string name="device_text_version">Version:</string>
-
-
 </resources>

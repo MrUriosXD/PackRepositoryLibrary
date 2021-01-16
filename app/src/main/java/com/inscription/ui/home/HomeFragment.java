@@ -16,7 +16,6 @@ import com.inscription.library.ChangeLogDialog;
 import com.inscription.library.CreditsDialog;
 import com.inscription.library.LicenseDialog;
 import com.inscription.library.ThanksDialog;
-import com.inscription.library.WhatsNewDialog;
 
 public class HomeFragment extends Fragment {
 
@@ -33,41 +32,36 @@ public class HomeFragment extends Fragment {
         final Button button2 = getActivity().findViewById(R.id.button2); //Boton View Credits
         final Button button3 = getActivity().findViewById(R.id.button3); //Boton View Tranks
         final Button button4 = getActivity().findViewById(R.id.button4); //Boton View Tranks
+        final Button button5 = getActivity().findViewById(R.id.button5); //Boton View Tranks
 
         /* Display Commands Buttons Application */
         View.OnClickListener listener = new View.OnClickListener() {
-                @SuppressLint("NonConstantResourceId")
-                @Override
-                public void onClick(View v) {
-                    switch (v.getId()) {
-                        case R.id.button1: //Boton View ChangeLog
-                            ChangeLogDialog changeLogDialog = new ChangeLogDialog(getContext());
-                            changeLogDialog.show();
-                            break;
-                        case R.id.button2: //Boton View Credits
-                            //Launch what's new dialog
-                            final WhatsNewDialog whatsNewDialog = new WhatsNewDialog(getContext());
-                            whatsNewDialog.show();
-                            break;
-                        case R.id.button3: //Boton View Credits
-                            CreditsDialog creditsDialog = new CreditsDialog(getContext());
-                            creditsDialog.show();
-                            break;
-                        case R.id.button4: //Boton View Thanks
-                            ThanksDialog thanksDialog = new ThanksDialog(getContext());
-                            thanksDialog.show();
-                            break;
-                        case R.id.button5: //Boton View Thanks
-                            LicenseDialog licenseDialog = new LicenseDialog(getContext());
-                            licenseDialog.show();
-                            break;
-                    }
+            @SuppressLint("NonConstantResourceId")
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.button1: //Boton View ChangeLog
+                        ChangeLogDialog changeLogDialog = new ChangeLogDialog(getContext());
+                        changeLogDialog.show();
+                        break;
+                    case R.id.button3: //Boton View Credits
+                        CreditsDialog creditsDialog = new CreditsDialog(getContext());
+                        creditsDialog.show();
+                        break;
+                    case R.id.button4: //Boton View Thanks
+                        ThanksDialog thanksDialog = new ThanksDialog(getContext());
+                        thanksDialog.show();
+                        break;
+                    case R.id.button5: //Boton View Licenses
+                        LicenseDialog licenseDialog = new LicenseDialog(getContext());
+                        licenseDialog.show();
+                        break;
                 }
-            };
-            button1.setOnClickListener(listener);
-            button2.setOnClickListener(listener);
-            button3.setOnClickListener(listener);
-            button4.setOnClickListener(listener);
-        }
-
+            }
+        };
+        button1.setOnClickListener(listener);
+        button3.setOnClickListener(listener);
+        button4.setOnClickListener(listener);
+        button5.setOnClickListener(listener);
+    }
 }

@@ -193,38 +193,28 @@ public class CreditsDialog {
 	//Get the credits in html code, this will be shown in the dialog's webview
 	private String getHTMLCredits(final int aResourceId, final Resources aResource) {
 		StringBuilder creditsBuilder = new StringBuilder("<html><head>" + getStyle() + "</head><body>");
-    	final XmlResourceParser xml = aResource.getXml(aResourceId);
-    	try
-    	{
-            int eventType = xml.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-            	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("section"))){
-            		creditsBuilder.append(parseSectionTag(xml));
+		try (XmlResourceParser xml = aResource.getXml(aResourceId)) {
+			int eventType = xml.getEventType();
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+				if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("section"))) {
+					creditsBuilder.append(parseSectionTag(xml));
 
-	            }
-            	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("copyright"))){
-            		creditsBuilder.append(parseCopyrightTag(xml));
+				}
+				if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("copyright"))) {
+					creditsBuilder.append(parseCopyrightTag(xml));
 
-	            }
-            	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("websites"))){
-            		creditsBuilder.append(parseWebsitesTag(xml));
+				}
+				if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("websites"))) {
+					creditsBuilder.append(parseWebsitesTag(xml));
 
-	            }
-            	eventType = xml.next();
-            }
-    	}
-    	catch (final XmlPullParserException e)
-    	{
-    		Log.e(TAG, e.getMessage(), e);
-    	}
-    	catch (final IOException e)
-    	{
-    		Log.e(TAG, e.getMessage(), e);
-    	}
-    	finally
-    	{
-    		xml.close();
-    	}
+				}
+				eventType = xml.next();
+			}
+		} catch (final XmlPullParserException e) {
+			Log.e(TAG, e.getMessage(), e);
+		} catch (final IOException e) {
+			Log.e(TAG, e.getMessage(), e);
+		}
 		creditsBuilder.append("</body></html>");
 		return creditsBuilder.toString();
 	}
@@ -245,21 +235,20 @@ public class CreditsDialog {
         //Get credits xml resource id
       	final int resID = resources.getIdentifier(CREDITS_XML, "xml", packageName);
         //Create html credits
-       	final String HTML = getHTMLCredits(resID, resources);
+       	final String htmlCredits = getHTMLCredits(resID, resources);
 
         //Get button strings
         final String Close =  resources.getString(R.string.close);
 
         //Check for empty credits
-        if (HTML.equals("")) {
+        if (htmlCredits.equals("")) {
         	//Could not load credits, message user and exit
         	Toast.makeText(mContext, "Could not load" + " " + resources.getString(R.string.title_credits), Toast.LENGTH_SHORT).show();
         	return;
         }
         //Create webview and load html
-        final WebView WebView = new WebView(mContext);
-        WebView.loadData(HTML, "text/html", "utf-8");
-
+		final WebView WebView = new WebView(mContext);
+		WebView.loadDataWithBaseURL(null, htmlCredits, "text/html", "utf-8", null);
 		final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, StyleDialogColor)
                 .setTitle(getCustomTitle())
                 .setView(WebView)

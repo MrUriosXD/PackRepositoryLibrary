@@ -33,32 +33,32 @@ public class LicenseDialog {
 			</license>
 		</licenses>
 	*/
-    private static final String TAG = "LicensesDialog";
+    private static final String TAG = "LicenseDialog";
 
     private static final String LICENSES_XML = "licenses";
 
-    //Get dialog title
-    private int mTitle = R.string.title_licenses;
-
     //No modificar
     private final Context mContext;
-
     public LicenseDialog(final Context context) {
         mContext = context;
     }
-
     private Context getContext() {
         return mContext;
     }
 
-    //CSS style for the html
-    private String getStyle() {
-        return String.format("<style type=\"text/css\">%s</style>", mStyle);
+    //Get dialog title
+    private int mTitle = R.string.title_licenses;
+    // and we can set a custom Title, default is "credits"
+    private int getCustomTitle() {
+        return mTitle ;
+    }
+    public void setCustomTitle(final int title) {
+        mTitle = title;
     }
 
-    public void setStyle(final String style) {
-        mStyle = style;
-    }
+    //CSS style for the html
+    private String getStyle() {return String.format("<style type=\"text/css\">%s</style>", mStyle);}
+    public void setStyle(final String style) {mStyle = style;}
 
     private String mStyle = "html, body { background-color: #FFFFFF; color: #303030; }"
                         +   "body { font-size: 12pt; }"
@@ -68,16 +68,9 @@ public class LicenseDialog {
                         +   "a { color: #000; text-decoration: none;  }"
                         +   "a:hover { color: #000; text-decoration: underline; }"
     ;
-
-    // and we can set a custom Title, default is "credits"
-    private int getCustomTitle() {
-        return mTitle ;
-    }
-
-    public void setCustomTitle(final int title) {
-        mTitle = title;
-    }
-
+    /**
+     * Contains constants for the release element of {@code licenses.xml}.
+     */
     private interface LicenseTag {
         String NAME = "license";
         String WEBSITE = "website";
@@ -141,10 +134,10 @@ public class LicenseDialog {
 
     @SuppressLint("NewApi")
     //Get the credits in html code, this will be shown in the dialog's webview
-    private String getHTMLLicense(int resID, final Resources resources) {
+    private String getHTMLLicense(final int aResourceId, final Resources resources) {
         final StringBuilder licensesBuilder = new StringBuilder();
         licensesBuilder.append("<html><head>").append(getStyle()).append("</head><body>");
-        try (XmlResourceParser xml = resources.getXml(resID)) {
+        try (XmlResourceParser xml = resources.getXml(aResourceId)) {
             int eventType = xml.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals(LicenseTag.NAME))) {
@@ -167,20 +160,20 @@ public class LicenseDialog {
     public void show() {
         //Get resources
         final String packageName = mContext.getPackageName();
-        Resources resources;
+        final Resources resources;
         try {
             resources = mContext.getPackageManager().getResourcesForApplication(packageName);
-        } catch (final PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        } catch (PackageManager.NameNotFoundException ignored) {
             return;
         }
+
         //Get credits xml resource id
         final int resID = resources.getIdentifier(LICENSES_XML, "xml", packageName);
-        //Create html credits
+        //Create html license
         final String htmlLicense = getHTMLLicense(resID, resources);
 
         //Get button strings
-        final String close = resources.getString(R.string.close);
+        final String closeString = resources.getString(R.string.close);
 
         //Check for empty credits
         if (htmlLicense.equals("")) {
@@ -188,14 +181,14 @@ public class LicenseDialog {
             Toast.makeText(mContext, "Could not load" + " " + LICENSES_XML, Toast.LENGTH_SHORT).show();
             return;
         }
+
         //Create webview and load html
         final WebView WebView = new WebView(mContext);
-        WebView.loadData(htmlLicense, "text/html", "utf-8");
-
+        WebView.loadDataWithBaseURL(null, htmlLicense, "text/html", "utf-8", null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, StyleDialogColor)
                 .setTitle(getCustomTitle())
                 .setView(WebView)
-                .setPositiveButton(close, new Dialog.OnClickListener() {
+                .setPositiveButton(closeString, new Dialog.OnClickListener() {
                     public void onClick(final DialogInterface dialogInterface, final int i) {
                         dialogInterface.dismiss();
                     }

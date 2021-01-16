@@ -4,9 +4,7 @@
     <string name="title_credits">Creditos</string>
     <string name="title_licenses">Licencias</string>
     <string name="title_tranks">Gracias</string>
-    <string name="version">Versión:</string>
-    <string name="select_theme">Seleccionar Tema</string>
-
+    <string name="version">Version:</string>
 
     <!-- Dialog (ChangeLog) -->
     <string name="changetag_added">Añadido</string>

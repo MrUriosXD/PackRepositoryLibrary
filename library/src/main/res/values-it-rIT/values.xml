@@ -5,7 +5,6 @@
     <string name="title_licenses">Licenze</string>
     <string name="title_tranks">Grazie</string>
     <string name="version">Version:</string>
-    <string name="select_theme">Seleziona il tema</string>
 
     <!-- Dialog (ChangeLog) -->
     <string name="changetag_added">Aggiunto</string>
