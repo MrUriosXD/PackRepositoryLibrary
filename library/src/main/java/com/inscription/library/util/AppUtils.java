@@ -85,7 +85,7 @@ public class AppUtils{
         context.startActivity(intent);
     }
     
-    public void rateAppsGooglePlay(Context context){
+    public static void rateAppsGooglePlay(Context context){
         ReviewManager reviewManager = ReviewManagerFactory.create(context);
         Task<ReviewInfo> request = reviewManager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
