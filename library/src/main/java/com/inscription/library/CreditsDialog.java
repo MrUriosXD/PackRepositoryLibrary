@@ -98,61 +98,61 @@ public class CreditsDialog {
 	}
 
 	//Parse the copyright tag and return html code
-	private String parseCreditTag(final XmlResourceParser aXml) throws XmlPullParserException, IOException {
+	private String parseCreditTag(final XmlResourceParser xml) throws XmlPullParserException, IOException {
 		StringBuilder creditsBuilder = new StringBuilder();
-        int eventType = aXml.getEventType();
-        while (!((eventType == XmlPullParser.END_TAG) && (aXml.getName().equals("credit")))) {
+        int eventType = xml.getEventType();
+        while (!((eventType == XmlPullParser.END_TAG) && (xml.getName().equals("credit")))) {
         	if (eventType == XmlPullParser.TEXT){
-        		creditsBuilder.append(aXml.getText());
+        		creditsBuilder.append(xml.getText());
             }
-        	if ((eventType == XmlPullParser.START_TAG) && (aXml.getName().equals("url"))){
-        		creditsBuilder.append(parseUrlTag(aXml));
+        	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("url"))){
+        		creditsBuilder.append(parseUrlTag(xml));
             }
-        	eventType = aXml.next();
+        	eventType = xml.next();
         }		
         return creditsBuilder.toString();
 	}
 	
 	//Parse a function tag and return html code
-	private String parseFunctionTag(final XmlResourceParser aXml) throws XmlPullParserException, IOException {
+	private String parseFunctionTag(final XmlResourceParser xml) throws XmlPullParserException, IOException {
 		StringBuilder creditsBuilder = new StringBuilder("<ul>");
-        int eventType = aXml.getEventType();
-        while ((eventType != XmlPullParser.END_TAG) || (aXml.getName().equals("credit"))) {
-        	if ((eventType == XmlPullParser.START_TAG) && (aXml.getName().equals("credit"))){
-            	eventType = aXml.next();
-        		creditsBuilder.append("<li>").append(parseCreditTag(aXml)).append("</li>");
+        int eventType = xml.getEventType();
+        while ((eventType != XmlPullParser.END_TAG) || (xml.getName().equals("credit"))) {
+        	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("credit"))){
+            	eventType = xml.next();
+        		creditsBuilder.append("<li>").append(parseCreditTag(xml)).append("</li>");
             }
-        	eventType = aXml.next();
+        	eventType = xml.next();
         }		
         creditsBuilder.append("</ul>");
         return creditsBuilder.toString();
 	}
 	
 	//Parse a section tag and return html code
-	private String parseSectionTag(final XmlResourceParser aXml) throws XmlPullParserException, IOException {
-		StringBuilder creditsBuilder = new StringBuilder("<h1>" + aXml.getAttributeValue(null, "title") + "</h1>");
-        int eventType = aXml.getEventType();
-        while ((eventType != XmlPullParser.END_TAG) || (aXml.getName().equals("function"))) {
-        	if ((eventType == XmlPullParser.START_TAG) && (aXml.getName().equals("function"))){
-        		creditsBuilder.append(parseFunctionTag(aXml));
+	private String parseSectionTag(final XmlResourceParser xml) throws XmlPullParserException, IOException {
+		StringBuilder creditsBuilder = new StringBuilder("<h1>" + xml.getAttributeValue(null, "title") + "</h1>");
+        int eventType = xml.getEventType();
+        while ((eventType != XmlPullParser.END_TAG) || (xml.getName().equals("function"))) {
+        	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("function"))){
+        		creditsBuilder.append(parseFunctionTag(xml));
             }
-        	eventType = aXml.next();
+        	eventType = xml.next();
         }		
         return creditsBuilder.toString();
 	}
 
 	//Parse the url tag and return html code
-	private String parseUrlTag(final XmlResourceParser aXml) throws XmlPullParserException, IOException {
-        int eventType = aXml.getEventType();
+	private String parseUrlTag(final XmlResourceParser xml) throws XmlPullParserException, IOException {
+        int eventType = xml.getEventType();
 		String url = "";
 		String title = "";
-		if (aXml.getAttributeValue(null, "title") != null)
-			title = aXml.getAttributeValue(null, "title");
+		if (xml.getAttributeValue(null, "title") != null)
+			title = xml.getAttributeValue(null, "title");
         while (eventType != XmlPullParser.END_TAG) {
         	if (eventType == XmlPullParser.TEXT){
-        		url = aXml.getText();
+        		url = xml.getText();
             }
-        	eventType = aXml.next();
+        	eventType = xml.next();
         }		
 		if (url.equals(""))
 			return "";
@@ -162,30 +162,30 @@ public class CreditsDialog {
 	}
 	
 	//Parse the copyright tag and return html code
-	private String parseCopyrightTag(final XmlResourceParser aXml) throws XmlPullParserException, IOException {
+	private String parseCopyrightTag(final XmlResourceParser xml) throws XmlPullParserException, IOException {
 		StringBuilder creditsBuilder = new StringBuilder("<br /><br />");
-        int eventType = aXml.getEventType();
-        while (!((eventType == XmlPullParser.END_TAG) && (aXml.getName().equals("copyright")))) {
+        int eventType = xml.getEventType();
+        while (!((eventType == XmlPullParser.END_TAG) && (xml.getName().equals("copyright")))) {
         	if (eventType == XmlPullParser.TEXT){
-        		creditsBuilder.append(aXml.getText());
+        		creditsBuilder.append(xml.getText());
             }
-        	if ((eventType == XmlPullParser.START_TAG) && (aXml.getName().equals("url"))){
-        		creditsBuilder.append(parseUrlTag(aXml));
+        	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("url"))){
+        		creditsBuilder.append(parseUrlTag(xml));
             }
-        	eventType = aXml.next();
+        	eventType = xml.next();
         }		
         return creditsBuilder.toString();
 	}
 	
 	//Parse the websites tag and return html code
-	private String parseWebsitesTag(final XmlResourceParser aXml) throws XmlPullParserException, IOException {
+	private String parseWebsitesTag(final XmlResourceParser xml) throws XmlPullParserException, IOException {
 		StringBuilder creditsBuilder = new StringBuilder();
-        int eventType = aXml.getEventType();
-        while (!((eventType == XmlPullParser.END_TAG) && (aXml.getName().equals("websites")))) {
-        	if ((eventType == XmlPullParser.START_TAG) && (aXml.getName().equals("url"))){
-        		creditsBuilder.append(parseUrlTag(aXml));
+        int eventType = xml.getEventType();
+        while (!((eventType == XmlPullParser.END_TAG) && (xml.getName().equals("websites")))) {
+        	if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals("url"))){
+        		creditsBuilder.append(parseUrlTag(xml));
             }
-        	eventType = aXml.next();
+        	eventType = xml.next();
         }		
         return creditsBuilder.toString();
 	}

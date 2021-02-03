@@ -1,14 +1,18 @@
 package com.inscription.ui.home;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.inscription.R;
@@ -16,6 +20,12 @@ import com.inscription.library.ChangeLogDialog;
 import com.inscription.library.CreditsDialog;
 import com.inscription.library.LicenseDialog;
 import com.inscription.library.ThanksDialog;
+import com.inscription.library.util.AppUtils;
+
+import java.io.IOException;
+
+import static com.inscription.library.util.AppUtils.getApplicationName;
+import static com.inscription.library.util.AppUtils.getSendEmailIntent;
 
 public class HomeFragment extends Fragment {
 
@@ -36,6 +46,7 @@ public class HomeFragment extends Fragment {
 
         /* Display Commands Buttons Application */
         View.OnClickListener listener = new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @SuppressLint("NonConstantResourceId")
             @Override
             public void onClick(View v) {
@@ -43,6 +54,30 @@ public class HomeFragment extends Fragment {
                     case R.id.button1: //Boton View ChangeLog
                         ChangeLogDialog changeLogDialog = new ChangeLogDialog(getContext());
                         changeLogDialog.show();
+                        break;
+                    case R.id.button2: //Boton View Credits
+                        try {
+                            // Write a dummy text file to this application's internal
+                            // cache dir.
+                            AppUtils.createCachedFile(getActivity(),
+                                    "Test.txt",
+                                    "This is a test");
+
+                            // Then launch the activity to send that file via gmail.
+                            AppUtils.getSendEmailIntent(getContext(),
+                                    AppUtils.email,
+                                    getContext().getResources().getString(com.inscription.library.R.string.share_extra_subject_email)+ " " + getApplicationName(getContext()),
+                                    "",
+                                    "Test.txt");
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        // Catch if Gmail is not available on this device
+                        catch (ActivityNotFoundException e) {
+                            Toast.makeText(getActivity(), "Gmail is not available on this device.", Toast.LENGTH_SHORT).show();
+                        }
+
                         break;
                     case R.id.button3: //Boton View Credits
                         CreditsDialog creditsDialog = new CreditsDialog(getContext());
@@ -60,6 +95,7 @@ public class HomeFragment extends Fragment {
             }
         };
         button1.setOnClickListener(listener);
+        button2.setOnClickListener(listener);
         button3.setOnClickListener(listener);
         button4.setOnClickListener(listener);
         button5.setOnClickListener(listener);

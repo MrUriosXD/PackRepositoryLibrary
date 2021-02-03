@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<changelog>
+    <release changeDate="04/04/2016" version="1.1" versioncode="2">
+        <added>Add Spanish language.
+        </added>
+    </release>
+    <release changeDate="03/04/2016" version="1" versioncode="1">
+        <added>Initial Release.
+        </added>
+    </release>
+</changelog>

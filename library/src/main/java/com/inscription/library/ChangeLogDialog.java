@@ -113,7 +113,7 @@ public class ChangeLogDialog {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             final Date parsedDate = dateFormat.parse(dateString);
-            return DateFormat.getDateFormat(getContext()).format(parsedDate);
+            return DateFormat.getDateFormat(mContext).format(parsedDate);
         } catch (ParseException ignored) {
             //If there is a problem parsing the date just return the original string
             return dateString;
@@ -124,7 +124,7 @@ public class ChangeLogDialog {
     private void parseReleaseTag (StringBuilder changelogBuilder, final XmlResourceParser xml) throws XmlPullParserException, IOException {
 
         //Add version and date if available
-        changelogBuilder.append("<h1>").append(getContext().getResources().getString(R.string.version)).append(" ").append("<span class=\"version\">").append(xml.getAttributeValue(null, ReleaseTag.ATTRIBUTE_VERSION)).append(" (").append(parseDate(xml.getAttributeValue(null, ReleaseTag.ATTRIBUTE_DATE))).append(")").append("</span>").append("</h1>");
+        changelogBuilder.append("<h1>").append(mContext.getResources().getString(R.string.version)).append(" ").append("<span class=\"version\">").append(xml.getAttributeValue(null, ReleaseTag.ATTRIBUTE_VERSION)).append(" (").append(parseDate(xml.getAttributeValue(null, ReleaseTag.ATTRIBUTE_DATE))).append(")").append("</span>").append("</h1>");
 
         //Add summary if available
         if (xml.getAttributeValue(null, ReleaseTag.ATTRIBUTE_SUMMARY) != null) {
@@ -136,23 +136,23 @@ public class ChangeLogDialog {
         while ((eventType != XmlPullParser.END_TAG) || (xml.getName().equals(ChangeTag.ADDED))) {
             if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals(ChangeTag.ADDED))) {
                 eventType = xml.next();
-                changelogBuilder.append("<li>").append("<span class=\"green\">").append("Added").append("</span>").append(parseTextTag(xml)).append("</li>");
+                changelogBuilder.append("<li>").append("<span class=\"green\">").append(mContext.getResources().getString(R.string.changetag_added)).append("</span>").append(parseTextTag(xml)).append("</li>");
             }
             if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals(ChangeTag.REMOVE))) {
                 eventType = xml.next();
-                changelogBuilder.append("<li>").append("<span class=\"red\">").append("Remove").append("</span>").append(parseTextTag(xml)).append("</li>");
+                changelogBuilder.append("<li>").append("<span class=\"red\">").append(mContext.getResources().getString(R.string.changetag_removed)).append("</span>").append(parseTextTag(xml)).append("</li>");
             }
             if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals(ChangeTag.CHANGED))) {
                 eventType = xml.next();
-                changelogBuilder.append("<li>").append("<span class=\"orange\">").append("Changed").append("</span>").append(parseTextTag(xml)).append("</li>");
+                changelogBuilder.append("<li>").append("<span class=\"orange\">").append(mContext.getResources().getString(R.string.changetag_changed)).append("</span>").append(parseTextTag(xml)).append("</li>");
             }
             if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals(ChangeTag.UPDATE))) {
                 eventType = xml.next();
-                changelogBuilder.append("<li>").append("<span class=\"blue\">").append("Update").append("</span>").append(parseTextTag(xml)).append("</li>");
+                changelogBuilder.append("<li>").append("<span class=\"blue\">").append(mContext.getResources().getString(R.string.changetag_update)).append("</span>").append(parseTextTag(xml)).append("</li>");
             }
             if ((eventType == XmlPullParser.START_TAG) && (xml.getName().equals(ChangeTag.SEGURITY))) {
                 eventType = xml.next();
-                changelogBuilder.append("<li>").append("<span class=\"gray\">").append("Segurity").append("</span>").append(parseTextTag(xml)).append("</li>");
+                changelogBuilder.append("<li>").append("<span class=\"gray\">").append(mContext.getResources().getString(R.string.changetag_security)).append("</span>").append(parseTextTag(xml)).append("</li>");
             }
             eventType = xml.next();
         }

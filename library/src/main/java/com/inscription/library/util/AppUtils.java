@@ -1,5 +1,6 @@
 package com.inscription.library.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,15 +13,29 @@ import android.view.Display;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.Task;
 import com.inscription.library.R;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 public class AppUtils{
     public static final int StyleDialogColor = R.style.AlertDialogTheme;
     public static final String appUserName = "MrUriosXD";
     public static final String appUserNameID = "7725682870183374926";
     public static final String email = "mruriosxd@gmail.com";
+    private static String fileName;
+    private static String content;
 
     //Toast to Exit
     private long lastPressedTime;
@@ -69,26 +84,42 @@ public class AppUtils{
         intent.setData(Uri.parse("package:" + GetAppPackageName(context)));
         context.startActivity(intent);
     }
+    
+    public void rateAppsGooglePlay(Context context){
+        ReviewManager reviewManager = ReviewManagerFactory.create(context);
+        Task<ReviewInfo> request = reviewManager.requestReviewFlow();
+        request.addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // We can get the ReviewInfo object
+                ReviewInfo reviewInfo = task.getResult();
+
+                Task<Void> flow = reviewManager.launchReviewFlow((Activity) context, reviewInfo);
+                flow.addOnCompleteListener(task1 -> {
+                    // The flow has finished. The API does not indicate whether the user
+                    // reviewed or not, or even whether the review dialog was shown. Thus, no
+                    // matter the result, we continue our app flow.
+                });
+            }
+        });
+    }
 
     public static void rateApps (Context context){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + GetAppPackageName(context) + context.getResources().getString(R.string.share_extra_text_lang)));
             context.startActivity(intent);
         } catch (android.content.ActivityNotFoundException anfe) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("http://play.google.com/store/apps/details?id=" + GetAppPackageName(context) + context.getResources().getString(R.string.share_extra_text_lang)));
             context.startActivity(intent);
         }
     }
 
     public static void otherApps (Context context){
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://dev?id:" + appUserNameID + context.getResources().getString(R.string.share_extra_text_lang)));
             context.startActivity(intent);
         } catch (android.content.ActivityNotFoundException anfe) {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("http://play.google.com/store/apps/dev?id=" + appUserNameID + context.getResources().getString(R.string.share_extra_text_lang)));
             context.startActivity(intent);
         }
@@ -159,6 +190,40 @@ public class AppUtils{
                         context.getResources().getString(R.string.device_screen_resolution) + getResolution(context) +
                         context.getResources().getString(R.string.device_app_version) + GetAppVersion(context) + " ("+ GetVersionCode(context) + ")"
         );
+        context.startActivity(Intent.createChooser(emailIntent, context.getResources().getString(R.string.share_title_email)));
+    }
+
+    // file creator
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public static void createCachedFile(Context context, String fileName, String content) throws IOException {
+        File cacheFile = new File(context.getExternalCacheDir() + File.separator + fileName);
+        cacheFile.createNewFile();
+
+        FileOutputStream fos = new FileOutputStream(cacheFile);
+        OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+        PrintWriter pw = new PrintWriter(osw);
+
+        pw.println(content);
+
+        pw.flush();
+        pw.close();
+    }
+
+    public static void getSendEmailIntent(Context context, String email, String subject, String body, String fileName) {
+        Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+        //Explicitly only use Gmail to send
+        emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        //Add the recipients
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        //Permition Read URI
+        emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        emailIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        //Add the attachment by specifying a reference to our custom ContentProvider
+        //and the specific file of interest
+        emailIntent.putExtra(Intent.EXTRA_STREAM, CachedFileProvider.getCacheFileUri(context, fileName));
+
         context.startActivity(Intent.createChooser(emailIntent, context.getResources().getString(R.string.share_title_email)));
     }
 
