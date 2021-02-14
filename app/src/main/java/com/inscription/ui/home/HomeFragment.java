@@ -25,7 +25,6 @@ import com.inscription.library.util.AppUtils;
 import java.io.IOException;
 
 import static com.inscription.library.util.AppUtils.getApplicationName;
-import static com.inscription.library.util.AppUtils.getSendEmailIntent;
 
 public class HomeFragment extends Fragment {
 

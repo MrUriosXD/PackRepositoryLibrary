@@ -25,6 +25,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.util.Log;
@@ -32,6 +33,8 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
 
 import static com.inscription.library.util.AppUtils.StyleDialogColor;
 
@@ -247,11 +250,21 @@ public class CreditsDialog {
         	return;
         }
         //Create webview and load html
-		final WebView WebView = new WebView(mContext);
-		WebView.loadDataWithBaseURL(null, htmlCredits, "text/html", "utf-8", null);
+		final WebView webView = new WebView(mContext);
+		webView.loadDataWithBaseURL(null, htmlCredits, "text/html", "utf-8", null);
+		if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+			int nightModeFlags = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+			if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+				//Theme is switched to Night/Dark mode, turn on webview darkening
+				WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
+			} else{
+				//Theme is not switched to Night/Dark mode, turn off webview darkening
+				WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
+			}
+		}
 		final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, StyleDialogColor)
                 .setTitle(getCustomTitle())
-                .setView(WebView)
+                .setView(webView)
                 .setPositiveButton(Close, new Dialog.OnClickListener() {
                     public void onClick(final DialogInterface dialogInterface, final int i) {
                         dialogInterface.dismiss();

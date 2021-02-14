@@ -1,12 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.inscription.library">
-<application>
-    <provider
-        android:name=".util.CachedFileProvider"
-        android:authorities="com.inscription.library.util.CachedFileProvider"
-        android:enabled="true"
-        android:exported="false"
-        android:grantUriPermissions="true" />
-</application>
+<manifest package="com.inscription.library">
 </manifest>

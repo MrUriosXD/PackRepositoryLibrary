@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.text.format.DateFormat;
@@ -14,6 +15,8 @@ import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.webkit.WebSettingsCompat;
+import androidx.webkit.WebViewFeature;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -22,6 +25,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import static com.inscription.library.util.AppUtils.StyleDialogColor;
 
@@ -31,7 +35,7 @@ import static com.inscription.library.util.AppUtils.StyleDialogColor;
 public class ChangeLogDialog {
 
     /*
-     * Class to show a license dialog
+     * Class to show a Changelog dialog
      *
      * Example xml
          <changelog>
@@ -57,8 +61,7 @@ public class ChangeLogDialog {
 
     public void setStyle(final String style) {mStyle = style;}
 
-    private String mStyle = "html, body { background-color: #FFFFFF; color: #303030; }"
-                    +   "body { font-size: 12pt; }"
+    private String mStyle = "body { font-size: 12pt; }"
                     +   "h1 { font-size: 12pt; }"
                     +   "li { margin: 0px 0px 5px 0px; font-size: 10pt; list-style: none; }"
                     +   "ul { padding: 0px; }"
@@ -110,7 +113,7 @@ public class ChangeLogDialog {
     //Parse a date string from the xml and format it using the local date format
     @SuppressLint("SimpleDateFormat")
     private String parseDate(final String dateString) {
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         try {
             final Date parsedDate = dateFormat.parse(dateString);
             return DateFormat.getDateFormat(mContext).format(parsedDate);
@@ -210,6 +213,7 @@ public class ChangeLogDialog {
     //Call to show the change log dialog
     public void show() { show(0); }
 
+    @SuppressLint("AddJavascriptInterface")
     private void show(final int version) {
         //Get resources
         final String packageName = mContext.getPackageName();
@@ -243,6 +247,16 @@ public class ChangeLogDialog {
         //Create web view and load html
         final WebView webView = new WebView(mContext);
         webView.loadDataWithBaseURL(null, htmlChangelog, "text/html", "utf-8", null);
+        if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+            int nightModeFlags = mContext.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+            if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+                //Theme is switched to Night/Dark mode, turn on webview darkening
+                WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_ON);
+            } else{
+                //Theme is not switched to Night/Dark mode, turn off webview darkening
+                WebSettingsCompat.setForceDark(webView.getSettings(), WebSettingsCompat.FORCE_DARK_OFF);
+            }
+        }
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, StyleDialogColor)
                 .setTitle(title)
                 .setView(webView)

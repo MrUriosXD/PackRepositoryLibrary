@@ -20,7 +20,7 @@
         android:layout_marginRight="34dp"
         android:layout_marginBottom="22dp"
         android:src="@drawable/inscription"
-        android:contentDescription="TODO" />
+        tools:ignore="ContentDescription" />
 
     <Button
         android:id="@+id/button1"
@@ -36,6 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignRight="@+id/button1"
+        android:layout_alignStart="@+id/button1"
+        android:layout_alignEnd="@+id/button1"
         android:layout_below="@+id/button1"
         android:layout_marginTop="5dp"
         android:text="Show WhatsNew" />
@@ -45,6 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button2"
         android:layout_alignRight="@+id/button2"
+        android:layout_alignStart="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
         android:layout_below="@+id/button2"
         android:layout_marginTop="5dp"
         android:text="Show Credits" />
@@ -54,6 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button3"
         android:layout_alignRight="@+id/button3"
+        android:layout_alignStart="@+id/button3"
+        android:layout_alignEnd="@+id/button3"
         android:layout_below="@+id/button3"
         android:layout_marginTop="5dp"
         android:text="Show Tranks" />
@@ -63,6 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button4"
         android:layout_alignRight="@+id/button4"
+        android:layout_alignStart="@+id/button4"
+        android:layout_alignEnd="@+id/button4"
         android:layout_below="@+id/button4"
         android:layout_marginTop="5dp"
         android:text="Show Licenses" />
