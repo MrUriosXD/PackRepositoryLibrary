@@ -17,10 +17,10 @@ This library contains the following classes:
 - **TranksDialog**
 
 Sample projects:
-- **Inscription Sample Changelog**
-- **Inscription Sample Licenses dialog**
-- **Inscription Sample Credits dialog**
-- **Inscription Sample Tranks dialog**
+- [x] **Inscription Sample Changelog**
+- [x] **Inscription Sample Licenses dialog**
+- [x] **Inscription Sample Credits dialog**
+- [x] **Inscription Sample Tranks dialog**
 
 Contribute
 ============
