@@ -11,16 +11,18 @@ https://github.com/MartinvanZ/Inscription/wiki**
 Contains
 ============
 This library contains the following classes:
-- **ChangeLogDialog**
-- **LicensesDialog**
-- **CreditsDialog**
-- **TranksDialog**
+- [x] **ChangeLogDialog**
+- [x] **LicensesDialog**
+- [x] **CreditsDialog**
+- [x] **TranksDialog**
+- [ ] **TermsCondDialog**
 
 Sample projects:
 - [x] **Inscription Sample Changelog**
 - [x] **Inscription Sample Licenses dialog**
 - [x] **Inscription Sample Credits dialog**
 - [x] **Inscription Sample Tranks dialog**
+- [ ] **Inscription Sample Terms and Conditions Dialog**
 
 Contribute
 ============
