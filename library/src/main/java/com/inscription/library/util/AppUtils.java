@@ -152,7 +152,7 @@ public class AppUtils{
         });
         adb.show();
     }
-
+    
     public static void checkRoot (Context context) {
         Toast.makeText(context, context.getResources().getString(R.string.toast_no_root), Toast.LENGTH_SHORT).show();
         final AlertDialog.Builder adb = new AlertDialog.Builder(context, StyleDialogColor);
@@ -272,36 +272,37 @@ public class AppUtils{
 
     public static String getAndroidVersion(int sdk) {
         switch (sdk) {
-            case 1:  return  "Android 1.0"   + " (" + "1" + " " + "Apple Pie"           + ")";
-            case 2:  return  "Android 1.1"   + " (" + "2" + " " + "Banana Bread"        + ")";
-            case 3:  return  "Android 1.5"   + " (" + "3" + " " + "Cupcake"             + ")";
-            case 4:  return  "Android 1.6"   + " (" + "4" + " " + "Donut"               + ")";
-            case 5:  return  "Android 2.0"   + " (" + "5" + " " + "Eclair"              + ")";
-            case 6:  return  "Android 2.0.1" + " (" + "6" + " " + "Eclair"              + ")";
-            case 7:  return  "Android 2.1"   + " (" + "7" + " " + "Eclair"              + ")";
-            case 8:  return  "Android 2.2"   + " (" + "8" + " " + "Froyo"               + ")";
-            case 9:  return  "Android 2.3"   + " (" + "9" + " " + "Gingerbread"         + ")";
-            case 10: return  "Android 2.3.3" + " (" + "10" + " " + "Gingerbread"         + ")";
-            case 11: return  "Android 3.0"   + " (" + "11" + " " + "Honeycomb"           + ")";
-            case 12: return  "Android 3.1"   + " (" + "12" + " " + "Honeycomb"           + ")";
-            case 13: return  "Android 3.2"   + " (" + "13" + " " + "Honeycomb"           + ")";
-            case 14: return  "Android 4.0"   + " (" + "14" + " " + "Ice Cream Sandwich"  + ")";
-            case 15: return  "Android 4.0.3" + " (" + "15" + " " + "Ice Cream Sandwich"  + ")";
-            case 16: return  "Android 4.1"   + " (" + "16" + " " + "Jelly Bean"          + ")";
-            case 17: return  "Android 4.2"   + " (" + "17" + " " + "Jelly Bean"          + ")";
-            case 18: return  "Android 4.3"   + " (" + "18" + " " + "Jelly Bean"          + ")";
-            case 19: return  "Android 4.4"   + " (" + "19" + " " + "KitKat"              + ")";
-            case 20: return  "Android 4.4"   + " (" + "20" + " " + "KitKat Watch"        + ")";
-            case 21: return  "Android 5.0"   + " (" + "21" + " " + "Lollipop"            + ")";
-            case 22: return  "Android 5.1"   + " (" + "22" + " " + "Lollipop"            + ")";
-            case 23: return  "Android 6.0"   + " (" + "23" + " " + "Marshmallow"         + ")";
-            case 24: return  "Android 7.0"   + " (" + "24" + " " + "Nougat"              + ")";
-            case 25: return  "Android 7.1.1" + " (" + "25" + " " + "Nougat"              + ")";
-            case 26: return  "Android 8.0"   + " (" + "26" + " " + "Oreo"                + ")";
-            case 27: return  "Android 8.1"   + " (" + "27" + " " + "Oreo"                + ")";
-            case 28: return  "Android 9.0"   + " (" + "28" + " " + "Pie"                 + ")";
-            case 29: return  "Android 10.0"  + " (" + "29" + " " + "Android 10"          + ")";
-            case 30: return  "Android 11.0"  + " (" + "30" + " " + "Android 11"          + ")";
+            case 1:  return  "Android 1.0"      + " (" + "1" + " " + "Apple Pie"           + ")";
+            case 2:  return  "Android 1.1"      + " (" + "2" + " " + "Banana Bread"        + ")";
+            case 3:  return  "Android 1.5"      + " (" + "3" + " " + "Cupcake"             + ")";
+            case 4:  return  "Android 1.6"      + " (" + "4" + " " + "Donut"               + ")";
+            case 5:  return  "Android 2.0"      + " (" + "5" + " " + "Eclair"              + ")";
+            case 6:  return  "Android 2.0.1"    + " (" + "6" + " " + "Eclair"              + ")";
+            case 7:  return  "Android 2.1"      + " (" + "7" + " " + "Eclair"              + ")";
+            case 8:  return  "Android 2.2"      + " (" + "8" + " " + "Froyo"               + ")";
+            case 9:  return  "Android 2.3"      + " (" + "9" + " " + "Gingerbread"         + ")";
+            case 10: return  "Android 2.3.7"    + " (" + "10" + " " + "Gingerbread"         + ")";
+            case 11: return  "Android 3.0"      + " (" + "11" + " " + "Honeycomb"           + ")";
+            case 12: return  "Android 3.1"      + " (" + "12" + " " + "Honeycomb"           + ")";
+            case 13: return  "Android 3.2.6"    + " (" + "13" + " " + "Honeycomb"           + ")";
+            case 14: return  "Android 4.0"      + " (" + "14" + " " + "Ice Cream Sandwich"  + ")";
+            case 15: return  "Android 4.0.5"    + " (" + "15" + " " + "Ice Cream Sandwich"  + ")";
+            case 16: return  "Android 4.1"      + " (" + "16" + " " + "Jelly Bean"          + ")";
+            case 17: return  "Android 4.2"      + " (" + "17" + " " + "Jelly Bean"          + ")";
+            case 18: return  "Android 4.3.1"    + " (" + "18" + " " + "Jelly Bean"          + ")";
+            case 19: return  "Android 4.4"      + " (" + "19" + " " + "KitKat"              + ")";
+            case 20: return  "Android 4.4.4"    + " (" + "20" + " " + "KitKat Watch"        + ")";
+            case 21: return  "Android 5.0"      + " (" + "21" + " " + "Lollipop"            + ")";
+            case 22: return  "Android 5.1.1"    + " (" + "22" + " " + "Lollipop"            + ")";
+            case 23: return  "Android 6.0"      + " (" + "23" + " " + "Marshmallow"         + ")";
+            case 24: return  "Android 7.0"      + " (" + "24" + " " + "Nougat"              + ")";
+            case 25: return  "Android 7.1.2"    + " (" + "25" + " " + "Nougat"              + ")";
+            case 26: return  "Android 8.0"      + " (" + "26" + " " + "Oreo"                + ")";
+            case 27: return  "Android 8.1"      + " (" + "27" + " " + "Oreo"                + ")";
+            case 28: return  "Android 9.0"      + " (" + "28" + " " + "Pie"                 + ")";
+            case 29: return  "Android 10.0"     + " (" + "29" + " " + "Q"                   + ")";
+            case 30: return  "Android 11.0"     + " (" + "30" + " " + ""                    + ")";
+            case 31: return  "Android 12.0"     + " (" + "31" + " " + ""                    + ")";
             default: return  "";
         }
     }

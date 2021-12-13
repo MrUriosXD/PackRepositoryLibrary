@@ -1,5 +1,7 @@
 package com.inscription.ui.home;
 
+import static com.inscription.library.util.AppUtils.getApplicationName;
+
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.os.Build;
@@ -8,14 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.inscription.R;
+import com.inscription.databinding.FragmentHomeBinding;
 import com.inscription.library.ChangeLogDialog;
 import com.inscription.library.CreditsDialog;
 import com.inscription.library.LicenseDialog;
@@ -23,8 +29,6 @@ import com.inscription.library.ThanksDialog;
 import com.inscription.library.util.AppUtils;
 
 import java.io.IOException;
-
-import static com.inscription.library.util.AppUtils.getApplicationName;
 
 public class HomeFragment extends Fragment {
 
@@ -56,21 +60,9 @@ public class HomeFragment extends Fragment {
                         break;
                     case R.id.button2: //Boton View Credits
                         try {
-                            // Write a dummy text file to this application's internal
-                            // cache dir.
-                            AppUtils.createCachedFile(getActivity(),
-                                    "Test.txt",
-                                    "This is a test");
-
                             // Then launch the activity to send that file via gmail.
-                            AppUtils.getSendEmailIntent(getContext(),
-                                    AppUtils.email,
-                                    getContext().getResources().getString(com.inscription.library.R.string.share_extra_subject_email)+ " " + getApplicationName(getContext()),
-                                    "",
-                                    "Test.txt");
+                            AppUtils.sendEmail(getContext());
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
                         // Catch if Gmail is not available on this device
                         catch (ActivityNotFoundException e) {
